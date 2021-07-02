@@ -1,15 +1,20 @@
-module.exports = (componentName) => ({
-  content: `// Generated with util/create-component.js
-import React from "react";
-import ${componentName} from "./${componentName}";
+const toUpperCammelCase = require("../to-upper-cammel-case");
+
+module.exports = (componentName) => {
+	const cammelCaseName = toUpperCammelCase(componentName);
+
+	return {
+		content: `import React from "react";
+import ${cammelCaseName} from "./${componentName}";
 
 export default {
-    title: "${componentName}"
+    title: "${cammelCaseName}"
 };
 
-export const WithBar = () => <${componentName} foo="bar" />;
+export const WithBar = () => <${cammelCaseName} foo="bar" />;
 
-export const WithBaz = () => <${componentName} foo="baz" />;
+export const WithBaz = () => <${cammelCaseName} foo="baz" />;
 `,
-  extension: `.stories.tsx`
-});
+		extension: `.stories.tsx`,
+	};
+};

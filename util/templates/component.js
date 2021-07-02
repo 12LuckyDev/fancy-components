@@ -1,17 +1,18 @@
-module.exports = (componentName) => ({
-  content: `// Generated with util/create-component.js
-import React from "react";
+const toUpperCammelCase = require("../to-upper-cammel-case");
 
-import { ${componentName}Props } from "./${componentName}.types";
+module.exports = (componentName) => {
+	const cammelCaseName = toUpperCammelCase(componentName);
 
-import "./${componentName}.scss";
-
-const ${componentName}: React.FC<${componentName}Props> = ({ foo }) => (
-    <div data-testid="${componentName}" className="foo-bar">{foo}</div>
+	return {
+		content: `import React from "react";
+import { ${cammelCaseName}Props } from "./${componentName}.types";
+  
+const ${cammelCaseName}: React.FC<${cammelCaseName}Props> = ({ foo }) => (
+	<div data-testid="${cammelCaseName}">{foo}</div>
 );
 
-export default ${componentName};
-
+export default ${cammelCaseName};
 `,
-  extension: `.tsx`
-});
+		extension: `.tsx`,
+	};
+};

@@ -1,8 +1,13 @@
-module.exports = (componentName) => ({
-  content: `// Generated with util/create-component.js
-export interface ${componentName}Props {
+const toUpperCammelCase = require("../to-upper-cammel-case");
+
+module.exports = (componentName) => {
+	const cammelCaseName = toUpperCammelCase(componentName);
+
+	return {
+		content: `export interface ${cammelCaseName}Props {
     foo: string;
 }
 `,
-  extension: `.types.ts`
-});
+		extension: `.types.ts`,
+	};
+};
